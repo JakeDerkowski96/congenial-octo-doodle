@@ -10,3 +10,4 @@
 # Get-PSRepository
 
 Install-Module -Name PowerShellGet -Force
+Install-Module winget
