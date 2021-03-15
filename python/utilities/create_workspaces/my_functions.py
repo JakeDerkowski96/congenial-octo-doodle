@@ -66,9 +66,9 @@ def id_number():
     i = 1
     while i < 13:
         if i < 10:
-            order = '0' + str(i) + '_'
+            order = '0' + str(i) + '-'
         else:
-            order = str(i) + '_'
+            order = str(i) + '-'
         IDs.append(order)
         i = i+1
     return IDs
