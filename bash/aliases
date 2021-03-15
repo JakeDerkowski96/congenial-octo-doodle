@@ -1,0 +1,7 @@
+alias cls='clear'
+alias ext='exit'
+alias cl='clear'
+alias et='exit'
+alias install='sudo apt-get install'
+alias update='sudo apt-get update'
+alias upgrade='sudo apt-get -y upgrade'
