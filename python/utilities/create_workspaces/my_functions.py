@@ -2,8 +2,9 @@ import os
 import sys
 import time
 import calendar
-from datetime import date
+from calendar import monthrange
 import datetime
+from datetime import date
 
 def program_exit(code_block):
     try:
@@ -15,16 +16,13 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def welcome_msg():
-    welcome = "Welcome to the workspace creation wizard! This program creates a directory that makes a workspace encironment where files can be arranged by the time in which they were created. Separated by month, and week. \n\n Example: 'MAR\1_8'"
+    welcome = "Welcome to the workspace creation wizard! This program creates a directory that makes a workspace encironment where files can be arranged by the time in which they were created. Separated by month, and week. \n\nExample: 'MAR\ 1 - 7'"
 
     print(welcome)
 
 def write_to_file(content, out_file):
     with open(out_file, 'a') as f:
         print(content, file=f)
-
-
-
 
 def get_user_answer():
     user_decision = input("\nConstruct here? (Y/n)\t")
@@ -37,45 +35,75 @@ def check_dir_exists(dir):
     if exists == False:
         os.mkdir(dir)
 
+def list_directory():
+    print('\n')
+    print(os.listdir(os.getcwd()))
+    print('\n')
+
 def get_year():
     today = date.today()
     year = today.strftime("%Y")
-    # year_int = int(year)
     return year
 
 def create_year_dir(year):
     check_dir_exists(year)
     os.chdir(year)
-    print(os.getcwd())
 
-def create_month_dir():
+def month_name():
+    mon_list = []
     i = 0
     for name in calendar.month_name:
+        i = i + 1
         abbr = name[0:3]
         abbr = abbr.upper()
-        print(abbr)
+        mon_list.append(abbr)
+    mon_list = mon_list[1:]
+    # print(i)
+    return mon_list
 
-        num = str(i)
+def id_number():
+    IDs = []
+    i = 1
+    while i < 13:
         if i < 10:
-            ordered = "0" + num + '_'
+            order = '0' + str(i) + '_'
         else:
-            ordered = num + '_'
+            order = str(i) + '_'
+        IDs.append(order)
+        i = i+1
+    return IDs
 
-        mon_dir = ordered + abbr
-        check_dir_exists(mon_dir)
-        i=+1
+def create_month_dir(IDs, month_list):
+    month_directories = []
+    for i in range (0, 12):
+        dir_name = IDs[i] + month_list[i]
+        month_directories.append(dir_name)
+        check_dir_exists(dir_name)
+        return month_directories
 
+def minimum_month_weeks():
+    weeks = []
+    week_one = "1-7"
+    week_two = "8-14"
+    week_three = "15-21"
+    week_four = "22-28"
 
-def list_directory():
-    curr = os.getcwd()
-    os.listdir(curr)
+    weeks.append(week_one)
+    weeks.append(week_two)
+    weeks.append(week_three)
+    weeks.append(week_four)
 
+    return weeks
 
+def create_week_list(year, month_no):
+    count = 1
+    week_list = minimum_month_weeks()
+    count = count + 1
+    days_num = number_of_days_in_month(year, month_no)
+    if days_num >28:
+        week_five = f"29-{days_num}"
+        week_list.append(week_five)
+    return week_list
 
-# month = today.strftime("%m")
-# day = today.strftime("%d")
-
-# today_int = int(today)
-# year_int = int(year)
-# month_int = int(month)
-# day_int = int(day)
+def number_of_days_in_month(year, month):
+    return monthrange(year, month)[1]
