@@ -1,0 +1,4 @@
+    Windows Registry Editor Version 5.00
+
+    [HKEY_CLASSES_ROOT\py\shell\Open with Sublime\command]
+    @="C:\\Program Files\\Sublime Text 3\\subl.exe"
